@@ -8,5 +8,7 @@
 .card:hover{
     background-color: aquamarine;
     cursor: pointer;
-    color: crimson;
+}
+#show-staff *{
+    margin: auto;
 }
