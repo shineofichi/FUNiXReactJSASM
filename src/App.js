@@ -10,7 +10,6 @@ class App extends Component {
     super(prop);
     this.state = {
       staffs : STAFFS,
-      departments : DEPARTMENTS.name,
     };
   }
   render(){
