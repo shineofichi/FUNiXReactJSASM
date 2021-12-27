@@ -2,7 +2,7 @@
 // import './App.css';
 import {Navbar , NavbarBrand} from "reactstrap"; 
 import React, {Component} from "react";
-import {STAFFS} from "./shared/staffs";
+import {STAFFS, DEPARTMENTS} from "./shared/staffs";
 import StaffList from "./components/StaffList";
 
 class App extends Component {
@@ -10,6 +10,7 @@ class App extends Component {
     super(prop);
     this.state = {
       staffs : STAFFS,
+      departments : DEPARTMENTS.name,
     };
   }
   render(){
