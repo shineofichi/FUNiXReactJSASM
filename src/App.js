@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-// import './App.css';
+import './App.css';
 import {Navbar , NavbarBrand} from "reactstrap"; 
 import React, {Component} from "react";
 import {STAFFS, DEPARTMENTS} from "./shared/staffs";
@@ -15,14 +15,21 @@ class App extends Component {
   render(){
     return(
       <div>
-      <Navbar dark color = "primary">
-        <div className = "container">
-          <NavbarBrand href = "/">
-            Ứng dụng quản lý nhân sự v1.0
-          </NavbarBrand>
-        </div>
-      </Navbar>
-      <StaffList staffs = {this.state.staffs}/>
+        <Navbar dark color = "primary">
+          <div className = "container">
+            <NavbarBrand href = "/">
+              Ứng dụng quản lý nhân sự v1.0
+            </NavbarBrand>
+          </div>
+        </Navbar>
+
+        <StaffList staffs = {this.state.staffs}/>
+
+        <Navbar dark color = "primary">
+          <div className = "container">
+            <p>Ứng dụng đang trong quá trình phát triển</p>
+          </div>
+        </Navbar>
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {Card, CardText, CardTitle} from "reactstrap";
+import {Card, CardText, CardTitle, ModalFooter} from "reactstrap";
 import dateFormat from 'dateformat'; 
 class StaffList extends Component{
     
@@ -18,7 +18,7 @@ class StaffList extends Component{
             return (
                 <div className="col-12 col-md-6 col-lg-4 p-1">
                 <Card>
-                    <CardTitle>Họ và tên : {staff.name}</CardTitle>
+                    <CardTitle className="">Họ và tên : {staff.name}</CardTitle>
                     <CardText>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</CardText>
                     <CardText>Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}</CardText>
                     <CardText>Phòng ban: {staff.department.name}</CardText>
