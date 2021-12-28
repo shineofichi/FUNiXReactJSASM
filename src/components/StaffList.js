@@ -1,7 +1,6 @@
 import React, {Component} from "react"
 import {Card, CardText, CardTitle} from "reactstrap";
 import dateFormat from 'dateformat'; 
-import ColumForm from "./SelectColumForm"
 class StaffList extends Component{
     
     constructor(prop){
@@ -135,7 +134,6 @@ class StaffList extends Component{
                             /> 6 cột
                         </label>
                     </form>
-                    {/* <ColumForm/> */}
                 </div>
                 <div className="row" id="show-staff">
                     {this.renderStaff(this.state.selectedStaff)}

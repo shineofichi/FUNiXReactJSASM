@@ -4,13 +4,14 @@ class ColumForm extends Component{
     constructor(prop){
         super(prop);
         this.state = {
-            scale: 0,
+            scale: 7,
         }
     }
     showColumms(prop) {
         var classStr = "";
         switch(prop){
-            case 0:
+            default:
+            case 7:
                 classStr = "col-12 col-md-6 col-lg-4 p-1";
                 return classStr;
             case 1:
@@ -28,8 +29,6 @@ class ColumForm extends Component{
             case 6:
                 classStr = "col-2 col-md-2 col-lg-2 p-1";
                 return classStr;
-            default:
-                return("col-12 col-md-6 col-lg-4 p-1");
         }
     }
     render(){
@@ -38,7 +37,7 @@ class ColumForm extends Component{
                 <label>
                     <input 
                         type="radio" 
-                        checked = {this.props.scaleCols === "7"}
+                        checked = {this.props === "7"}
                         value="7"
                         onChange={this.props.onHandleScale}
                         /> Tự động
@@ -46,7 +45,7 @@ class ColumForm extends Component{
                     <label>
                     <input 
                         type="radio" 
-                        checked = {this.props.scaleCols === "1"}
+                        checked = {this.scale === "1"}
                         value="1"
                         onChange={this.props.onHandleScale}
                         /> 1 cột
@@ -54,7 +53,7 @@ class ColumForm extends Component{
                     <label>
                     <input
                         type="radio" 
-                        checked = {this.props.scaleCols === "2"}
+                        checked = {this.scale === "2"}
                         value="2"
                         onChange={this.props.onHandleScale}
                         /> 2 cột
@@ -62,7 +61,7 @@ class ColumForm extends Component{
                     <label>
                     <input
                         type="radio"
-                        checked = {this.props.scaleCols === "3"}
+                        checked = {this.scale === "3"}
                         value="3"
                         onChange={this.props.onHandleScale}
                         /> 3 cột
@@ -70,7 +69,7 @@ class ColumForm extends Component{
                     <label>
                     <input
                         type="radio"
-                        checked = {this.state.scaleCols === "4"}
+                        checked = {this.props.scaleCols === "4"}
                         value="4"
                         onChange={this.props.onHandleScale}
                         /> 4 cột
@@ -78,7 +77,7 @@ class ColumForm extends Component{
                     <label>
                     <input
                         type="radio"
-                        checked = {this.state.scaleCols === "6"}
+                        checked = {this.props.scaleCols === "6"}
                         value="6"
                         onChange={this.props.onHandleScale}
                         /> 6 cột
