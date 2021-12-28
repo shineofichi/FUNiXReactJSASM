@@ -2,7 +2,7 @@
 import './App.css';
 import {Navbar , NavbarBrand} from "reactstrap"; 
 import React, {Component} from "react";
-import {STAFFS, DEPARTMENTS} from "./shared/staffs";
+import {STAFFS} from "./shared/staffs";
 import StaffList from "./components/StaffList";
 
 class App extends Component {
@@ -22,14 +22,7 @@ class App extends Component {
             </NavbarBrand>
           </div>
         </Navbar>
-
         <StaffList staffs = {this.state.staffs}/>
-
-        <Navbar dark color = "primary">
-          <div className = "container">
-            <p>Ứng dụng đang trong quá trình phát triển</p>
-          </div>
-        </Navbar>
       </div>
     );
   }

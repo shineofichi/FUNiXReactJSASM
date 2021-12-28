@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {Card, CardText, CardTitle, ModalFooter} from "reactstrap";
+import {Card, CardText, CardTitle} from "reactstrap";
 import dateFormat from 'dateformat'; 
 class StaffList extends Component{
     
@@ -7,9 +7,32 @@ class StaffList extends Component{
         super(prop);
         this.state = {
             selectedStaff : null,
+            selectedCols: 3,
         };
     }
-    
+    showColumms(prop) {
+        var classStr = "";
+        switch(prop){
+            case 1:
+                classStr = "col-12 col-md-12 col-lg-12 p-1";
+                return classStr;
+            case 2:
+                classStr = "col-12 col-md-6 col-lg-6 p-1";
+                return classStr;
+            case 3:
+                classStr = "col-12 col-md-4 col-lg-4 p-1";
+                return classStr;
+            case 4:
+                classStr = "col-12 col-md-3 col-lg-3 p-1";
+                return classStr;
+            case 6:
+                classStr = "col-12 col-md-2 col-lg-2 p-1";
+                return classStr;
+            default:
+                return("col-12 col-md-6 col-lg-4 p-1");
+        }
+
+    }
     onStaffSelect(staff){
         this.setState({selectedStaff: staff});
     }
@@ -39,7 +62,7 @@ class StaffList extends Component{
     render(){
         const staffList = this.props.staffs.map((staff) => {
             return (
-                <div key={staff.id} className="col-12 col-md-6 col-lg-4 p-1">
+                <div key={staff.id} className={this.showColumms(this.state.selectedCols)}>
                     <a href="#show-staff">
                         <Card onClick = {() => this.onStaffSelect(staff)}>
                             <CardTitle>{staff.name}</CardTitle>
