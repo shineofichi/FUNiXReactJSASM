@@ -84,6 +84,7 @@ class StaffList extends Component{
                     {staffList}
                 </div>
             <div className="showColumm">
+                <p>Chọn chế độ sắp xếp:</p>
                 <form onSubmit={this.preventDefault}>
                     <label>
                         <input 
