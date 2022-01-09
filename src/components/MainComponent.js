@@ -13,19 +13,11 @@ class Main extends Component {
     this.state = {
       staffs : STAFFS,
       departments: DEPARTMENTS,
-      basicSlary: 3000000,
+      basicSalary: 3000000,
       overTimeSalary: 200000,
     };
   }
-  // Salary () {
-  //   return(
-  //     <Salary 
-  //       basic={this.state.basicSlary}
-  //       overTimeSalary={this.state.overTimeSalary}
-  //       staffs={this.state.staffs}
-  //     />
-  //   )
-  // }
+
   render(){
     return(
       <div>
@@ -33,7 +25,7 @@ class Main extends Component {
         <Routes>
           <Route path="/home" element={<StaffList staffs = {this.state.staffs}/>}/>
           <Route path="/dep" element={<Department deps={this.state.departments}/>}/>
-          <Route path="/salary" element={<Salary staffs={this.state.staffs} />} />
+          <Route path="/salary" element={<Salary staffs={this.state.staffs} basic={this.state.basicSalary} overTimeSalary = {this.state.overTimeSalary} />} />
         </Routes>
         
         <Footer/>
