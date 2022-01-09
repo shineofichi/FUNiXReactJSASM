@@ -1,15 +1,8 @@
 import { Component } from "react";
 
-class ColumForm extends Component{
-    constructor(prop){
-        super(prop);
-        this.state = {
-            scale: 7,
-        }
-    }
-    showColumms(prop) {
-        var classStr = "";
-        switch(prop){
+function showColumms(scale) {
+    let classStr = "";
+        switch(scale){
             default:
             case 7:
                 classStr = "col-12 col-md-6 col-lg-4 p-1";
@@ -31,6 +24,7 @@ class ColumForm extends Component{
                 return classStr;
         }
     }
+class ColumForm extends Component{
     render(){
         return(
             <form onSubmit={this.preventDefault}>
