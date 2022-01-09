@@ -1,13 +1,13 @@
-import {Card, CardImg, CardText, CardTitle} from "reactstrap";
+import { CardImg, CardText, CardTitle} from "reactstrap";
 import dateFormat from 'dateformat'; 
 
-function StaffDetail(staff){
+function StaffDetail({staff}){
     if (staff != null){
         return (
             <div className="container">
                 <div className="row">
-                    <Card>
-                        <div className="col-12 col-md-4 col-lg-9 p-1">
+                    
+                        <div className="col-12 col-md-4 col-lg-3 p-1">
                         <CardImg src={staff.image} alt={staff.name}/>
                         </div>
                         <div className="col-12 col-md-8 col-lg-9 p-1">
@@ -18,7 +18,7 @@ function StaffDetail(staff){
                             <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
                             <CardText>Số giờ đã làm thêm: {staff.overTime}</CardText>
                         </div>
-                    </Card>
+                        
                 </div>
             </div>
         )
