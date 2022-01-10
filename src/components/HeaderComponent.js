@@ -35,6 +35,7 @@ class Header extends Component {
                 width="41"
                 alt="Funix"
               />
+              Ứng dụng quản lý nhân sự
             </NavbarBrand>
             <Collapse isOpen={this.state.isNavOpen} navbar>
               <Nav navbar>
