@@ -1,12 +1,17 @@
 import React from "react";
 import { Table } from "reactstrap";
-
+import BreadcrumbTree from "./BreadcrumbComponent";
 // param: staff, basicSalary, salaryScale;
 function SalaryDetail(props) {
   const basicSalary = props.basicSalary * props.staff.salaryScale;
   const overTimeSalary = props.overTimeSalary * props.staff.overTime;
   return (
     <div className="container">
+      <BreadcrumbTree
+        thispage={props.staff.name}
+        prepage="Bảng lương"
+        linktoback="/salary"
+      />
       <div className="row text-center">
         <h1> Chi tiết bảng lương</h1>
       </div>
