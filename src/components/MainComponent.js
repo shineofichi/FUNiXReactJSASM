@@ -8,6 +8,7 @@ import StaffDetail from "./StaffDetailComponent";
 import { Route, Routes, useParams, Navigate } from "react-router-dom";
 import Salary from "./SalaryComponent";
 import DepDetail from "./DepDetailComponent";
+import SalaryDetail from "./SalaryDetailComponent";
 
 class Main extends Component {
   constructor(prop) {
@@ -35,14 +36,26 @@ class Main extends Component {
     };
     const DepDetailWithId = () => {
       const params = useParams();
-      console.log(params.id);
-      console.log(this.state.staffs);
       return (
         <DepDetail
           staffs={this.state.staffs.filter(
             (staff) => staff.department.id === params.id
           )}
           dep={this.state.departments.filter((dep) => dep.id === params.id)[0]}
+        />
+      );
+    };
+    const SalaryWithId = () => {
+      const params = useParams();
+      return (
+        <SalaryDetail
+          staff={
+            this.state.staffs.filter(
+              (staff) => staff.id === parseInt(params.id, 10)
+            )[0]
+          }
+          basicSalary={this.state.basicSalary}
+          overTimeSalary={this.state.overTimeSalary}
         />
       );
     };
@@ -64,6 +77,16 @@ class Main extends Component {
             path="/salary"
             element={
               <Salary
+                staffs={this.state.staffs}
+                basic={this.state.basicSalary}
+                overTimeSalary={this.state.overTimeSalary}
+              />
+            }
+          />
+          <Route
+            path="/salary/:id"
+            element={
+              <SalaryWithId
                 staffs={this.state.staffs}
                 basic={this.state.basicSalary}
                 overTimeSalary={this.state.overTimeSalary}

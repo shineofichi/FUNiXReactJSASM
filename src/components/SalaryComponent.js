@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardBody, CardFooter, CardText, CardTitle } from "reactstrap";
+import { Link } from "react-router-dom";
 
 function Salary(props) {
   const staff = props.staffs.map((staff) => {
@@ -7,15 +8,17 @@ function Salary(props) {
       props.basic * staff.salaryScale + staff.overTime * props.overTimeSalary;
     return (
       <div key={staff.id} className="col-12 col-md-6 col-lg-4 p-1">
-        <Card>
-          <CardTitle>{staff.name}</CardTitle>
-          <CardBody>
-            <CardText>Mã nhân viên: {staff.id}</CardText>
-            <CardText>Hệ số lương: {staff.salaryScale}</CardText>
-            <CardText>Số giờ làm thêm: {staff.overTime}</CardText>
-          </CardBody>
-          <CardFooter>Lương: {parseInt(salary)}</CardFooter>
-        </Card>
+        <Link to={`/salary/${staff.id}`}>
+          <Card>
+            <CardTitle>{staff.name}</CardTitle>
+            <CardBody>
+              <CardText>Mã nhân viên: {staff.id}</CardText>
+              <CardText>Hệ số lương: {staff.salaryScale}</CardText>
+              <CardText>Số giờ làm thêm: {staff.overTime}</CardText>
+            </CardBody>
+            <CardFooter>Lương: {parseInt(salary)}</CardFooter>
+          </Card>
+        </Link>
       </div>
     );
   });
