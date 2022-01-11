@@ -27,12 +27,11 @@ function StaffList({ staffs }) {
   return (
     <div className="container">
       <div className="row">
-        <Form inline>
+        <Form className="col-12 col-md-12 col-lg-6 pt-2">
           <FormGroup>
             <Input
               type="text"
               placeholder="Tìm theo tên nhân viên"
-              size="40"
               onChange={OnChangeSearchInput}
             ></Input>
           </FormGroup>
