@@ -12,6 +12,7 @@ import {
   Modal,
   ModalBody,
   ModalHeader,
+  FormFeedback,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -21,8 +22,26 @@ class StaffList extends Component {
     this.state = {
       searchName: "",
       isModalOpen: false,
+      id: "",
+      name: "",
+      doB: "",
+      salaryScale: "",
+      startDate: "",
+      department: "",
+      annualLeave: "",
+      overTime: "",
+      salary: "",
+      image: "/assets/images/alberto.png",
+      touched: {
+        name: false,
+        doB: false,
+        startDate: false,
+      },
     };
     this.onToggleModal = this.onToggleModal.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.onChangeSearchInput = this.onChangeSearchInput.bind(this);
   }
   onChangeSearchInput = (event) => {
     event.preventDefault();
@@ -32,6 +51,45 @@ class StaffList extends Component {
     this.setState({
       isModalOpen: !this.state.isModalOpen,
     });
+  }
+  handleBlur = (field) => (evt) => {
+    this.setState({
+      touched: { ...this.state.touched, [field]: true },
+    });
+  };
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value,
+    });
+    console.log(this.state);
+  }
+  validate(name, doB, startDate) {
+    const errors = {
+      name: "",
+      doB: "",
+      startDate: "",
+    };
+    const TODAY = new Date();
+    if (this.state.touched.name && name.length < 2) {
+      errors.name = "Yêu cầu tối thiểu 2 ký tự";
+    } else if (this.state.touched.name && name.length > 30) {
+      errors.name = "Yêu cầu dưới 30 ký tự";
+    }
+
+    if (this.state.touched.doB && doB < TODAY) {
+      errors.doB = "Yêu cầu nhập chính xác ngày";
+    }
+    if (this.state.touched.startDate && startDate < TODAY) {
+      errors.startDate = "Yêu cầu nhập chính xác ngày";
+    }
+    return errors;
+  }
+
+  onHandleAddStaff(event) {
+    event.preventDefault();
   }
   render() {
     const stafflist = this.props.staffs
@@ -50,6 +108,11 @@ class StaffList extends Component {
           </div>
         );
       });
+    const errors = this.validate(
+      this.state.name,
+      this.state.doB,
+      this.state.startDate
+    );
     return (
       <div className="container">
         <div className="row">
@@ -61,6 +124,7 @@ class StaffList extends Component {
           >
             <span className="fa fa-plus"></span>
           </Button>
+          {/* Modal thêm nhân viên */}
           <Modal isOpen={this.state.isModalOpen}>
             <ModalHeader toggle={this.onToggleModal}>
               Thêm nhân viên
@@ -72,7 +136,17 @@ class StaffList extends Component {
                     Tên
                   </Label>
                   <Col md={8}>
-                    <Input type="text" id="name" name="name"></Input>
+                    <Input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={this.state.name}
+                      valid={errors.name === ""}
+                      invalid={errors.name !== ""}
+                      onBlur={this.handleBlur("name")}
+                      onChange={this.handleInputChange}
+                    />
+                    <FormFeedback>{errors.name}</FormFeedback>
                   </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -80,7 +154,18 @@ class StaffList extends Component {
                     Ngày sinh
                   </Label>
                   <Col md={8}>
-                    <Input type="date" id="doB" name="doB"></Input>
+                    <Input
+                      type="date"
+                      id="doB"
+                      name="doB"
+                      pattern="\d{2}-\d{2}-d{4}"
+                      value={this.state.doB}
+                      valid={errors.doB === ""}
+                      invalid={errors.doB !== ""}
+                      onBlur={this.handleBlur("doB")}
+                      onChange={this.handleInputChange}
+                    />
+                    <FormFeedback>{errors.doB}</FormFeedback>
                   </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -88,7 +173,17 @@ class StaffList extends Component {
                     Ngày vào công ty
                   </Label>{" "}
                   <Col md={8}>
-                    <Input type="date" id="startDate" name="startDate"></Input>
+                    <Input
+                      type="date"
+                      id="startDate"
+                      name="startDate"
+                      value={this.state.startDate}
+                      valid={errors.startDate === ""}
+                      invalid={errors.startDate !== ""}
+                      onBlur={this.handleBlur("startDate")}
+                      onChange={this.handleInputChange}
+                    />
+                    <FormFeedback>{errors.startDate}</FormFeedback>
                   </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -150,6 +245,7 @@ class StaffList extends Component {
                     value="submit"
                     color="primary"
                     className="offset-5"
+                    onClick={this.onHandleAddStaff}
                   >
                     Thêm
                   </Button>
@@ -157,6 +253,8 @@ class StaffList extends Component {
               </Form>
             </ModalBody>
           </Modal>
+          {/* --------------------- */}
+          {/* Form tìm nhân viên */}
           <Form
             className="pt-2 ml-auto"
             inline
@@ -179,6 +277,7 @@ class StaffList extends Component {
               </Button>
             </FormGroup>
           </Form>
+          {/* --------------------- */}
         </div>
         <hr></hr>
         <div className="row">{stafflist}</div>
