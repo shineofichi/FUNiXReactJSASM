@@ -25,11 +25,11 @@ class StaffList extends Component {
       id: "",
       name: "",
       doB: "",
-      salaryScale: "",
+      salaryScale: 1,
       startDate: "",
-      department: "",
-      annualLeave: "",
-      overTime: "",
+      department: "Finance",
+      annualLeave: 0,
+      overTime: 0,
       salary: "",
       image: "/assets/images/alberto.png",
       touched: {
@@ -37,11 +37,14 @@ class StaffList extends Component {
         doB: false,
         startDate: false,
       },
+      staffs: this.props.staffs,
+      validated: false,
     };
     this.onToggleModal = this.onToggleModal.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onChangeSearchInput = this.onChangeSearchInput.bind(this);
+    this.onHandleAddStaff = this.onHandleAddStaff.bind(this);
   }
   onChangeSearchInput = (event) => {
     event.preventDefault();
@@ -64,7 +67,6 @@ class StaffList extends Component {
     this.setState({
       [name]: value,
     });
-    console.log(this.state);
   }
   validate(name, doB, startDate) {
     const errors = {
@@ -90,6 +92,26 @@ class StaffList extends Component {
 
   onHandleAddStaff(event) {
     event.preventDefault();
+    this.onToggleModal();
+    const newStaff = {
+      id: this.props.staffs.length,
+      name: this.state.name,
+      doB: this.state.doB,
+      salaryScale: this.state.salaryScale,
+      startDate: this.state.startDate,
+      department: {
+        id: "Dept01",
+        name: this.state.department,
+        numberOfStaff: 1,
+      },
+      annualLeave: this.state.annualLeave,
+      overTime: this.state.overTime,
+      salary: this.state.salary,
+      image: this.state.image,
+    };
+    localStorage.setItem("newStaff", JSON.stringify(newStaff));
+    this.state.staffs.push(newStaff);
+    localStorage.removeItem("newStaff");
   }
   render() {
     const stafflist = this.props.staffs
@@ -130,7 +152,7 @@ class StaffList extends Component {
               Thêm nhân viên
             </ModalHeader>
             <ModalBody>
-              <Form>
+              <Form onSubmit={this.onHandleAddStaff}>
                 <FormGroup row>
                   <Label htmlFor="name" md={4}>
                     Tên
@@ -141,7 +163,6 @@ class StaffList extends Component {
                       id="name"
                       name="name"
                       value={this.state.name}
-                      valid={errors.name === ""}
                       invalid={errors.name !== ""}
                       onBlur={this.handleBlur("name")}
                       onChange={this.handleInputChange}
@@ -160,7 +181,6 @@ class StaffList extends Component {
                       name="doB"
                       pattern="\d{2}-\d{2}-d{4}"
                       value={this.state.doB}
-                      valid={errors.doB === ""}
                       invalid={errors.doB !== ""}
                       onBlur={this.handleBlur("doB")}
                       onChange={this.handleInputChange}
@@ -178,7 +198,6 @@ class StaffList extends Component {
                       id="startDate"
                       name="startDate"
                       value={this.state.startDate}
-                      valid={errors.startDate === ""}
                       invalid={errors.startDate !== ""}
                       onBlur={this.handleBlur("startDate")}
                       onChange={this.handleInputChange}
@@ -191,7 +210,13 @@ class StaffList extends Component {
                     Phòng ban
                   </Label>{" "}
                   <Col md={8}>
-                    <Input type="select" id="department" name="department">
+                    <Input
+                      type="select"
+                      id="department"
+                      name="department"
+                      onChange={this.handleInputChange}
+                      value={this.state.department}
+                    >
                       <option>Sale</option>
                       <option>HR</option>
                       <option>Marketing</option>
@@ -209,7 +234,7 @@ class StaffList extends Component {
                       type="text"
                       id="salaryScale"
                       name="salaryScale"
-                      defaultValue="1"
+                      defaultValue={this.state.salaryScale}
                     ></Input>
                   </Col>
                 </FormGroup>
@@ -222,7 +247,7 @@ class StaffList extends Component {
                       type="text"
                       id="annualLeave"
                       name="annualLeave"
-                      defaultValue="0"
+                      defaultValue={this.state.annualLeave}
                     ></Input>
                   </Col>
                 </FormGroup>
@@ -235,7 +260,7 @@ class StaffList extends Component {
                       type="text"
                       id="overTime"
                       name="overTime"
-                      defaultValue="0"
+                      defaultValue={this.state.overTime}
                     ></Input>
                   </Col>
                 </FormGroup>
@@ -245,7 +270,6 @@ class StaffList extends Component {
                     value="submit"
                     color="primary"
                     className="offset-5"
-                    onClick={this.onHandleAddStaff}
                   >
                     Thêm
                   </Button>

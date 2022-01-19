@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { STAFFS, DEPARTMENTS } from "../shared/staffs";
-import StaffList from "./StaffListComponent";
-import Header from "./HeaderComponent";
-import Footer from "./FooterComponent";
-import Department from "./DepartmentComponent";
-import StaffDetail from "./StaffDetailComponent";
 import { Route, Routes, useParams, Navigate } from "react-router-dom";
-import Salary from "./SalaryComponent";
-import DepDetail from "./DepDetailComponent";
-import SalaryDetail from "./SalaryDetailComponent";
+import { STAFFS, DEPARTMENTS } from "../../shared/staffs";
+import StaffList from "../Presentational/StaffListComponent";
+import Header from "../Presentational/HeaderComponent";
+import Footer from "../Presentational/FooterComponent";
+import Department from "../Presentational/DepartmentComponent";
+import StaffDetail from "../Presentational/StaffDetailComponent";
+import Salary from "../Presentational/SalaryComponent";
+import DepDetail from "../Presentational/DepDetailComponent";
+import SalaryDetail from "../Presentational/SalaryDetailComponent";
 
 class Main extends Component {
   constructor(prop) {
