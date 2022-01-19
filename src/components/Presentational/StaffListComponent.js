@@ -15,6 +15,7 @@ import {
   FormFeedback,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import Search from "./SearchComponent";
 
 class StaffList extends Component {
   constructor(props) {
@@ -43,12 +44,13 @@ class StaffList extends Component {
     this.onToggleModal = this.onToggleModal.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.onChangeSearchInput = this.onChangeSearchInput.bind(this);
     this.onHandleAddStaff = this.onHandleAddStaff.bind(this);
+    this.getSearchKey = this.getSearchKey.bind(this);
   }
-  onChangeSearchInput = (event) => {
-    event.preventDefault();
-    this.setState({ searchName: this.searchName.value });
+  getSearchKey = (key) => {
+    this.setState({
+      searchName: key,
+    });
   };
   onToggleModal() {
     this.setState({
@@ -279,28 +281,7 @@ class StaffList extends Component {
           </Modal>
           {/* --------------------- */}
           {/* Form tìm nhân viên */}
-          <Form
-            className="pt-2 ml-auto"
-            inline
-            onSubmit={this.onChangeSearchInput}
-          >
-            <FormGroup>
-              <Label htmlFor="searchtext"></Label>
-              <Input
-                type="text"
-                placeholder="Tìm theo tên nhân viên"
-                size="30"
-                id="seachtext"
-                name="searchtext"
-                innerRef={(input) => (this.searchName = input)}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Button type="submit" value="submit" color="primary">
-                Tìm
-              </Button>
-            </FormGroup>
-          </Form>
+          <Search parentCallback={this.getSearchKey} />
           {/* --------------------- */}
         </div>
         <hr></hr>
@@ -309,11 +290,5 @@ class StaffList extends Component {
     );
   }
 }
-
-// function StaffList({ staffs }) {
-//   const [searchName, setSearchName] = useState("");
-//   const [isModalOpen, setIsModalOpen] = useState(false);
-
-// }
 
 export default StaffList;
