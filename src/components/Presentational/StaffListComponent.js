@@ -22,24 +22,24 @@ class StaffList extends Component {
     super(props);
     this.state = {
       searchName: "",
-      isModalOpen: false,
-      id: "",
-      name: "",
-      doB: "",
-      salaryScale: 1,
-      startDate: "",
-      department: "Finance",
-      annualLeave: 0,
-      overTime: 0,
-      salary: "",
-      image: "/assets/images/alberto.png",
-      touched: {
-        name: false,
-        doB: false,
-        startDate: false,
-      },
-      staffs: this.props.staffs,
-      validated: false,
+      // isModalOpen: false,
+      // id: "",
+      // name: "",
+      // doB: "",
+      // salaryScale: 1,
+      // startDate: "",
+      // department: "Finance",
+      // annualLeave: 0,
+      // overTime: 0,
+      // salary: "",
+      // image: "/assets/images/alberto.png",
+      // touched: {
+      //   name: false,
+      //   doB: false,
+      //   startDate: false,
+      // },
+      // staffs: this.props.staffs,
+      // validated: false,
     };
     this.onToggleModal = this.onToggleModal.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
@@ -132,24 +132,24 @@ class StaffList extends Component {
           </div>
         );
       });
-    const errors = this.validate(
-      this.state.name,
-      this.state.doB,
-      this.state.startDate
-    );
+    // const errors = this.validate(
+    //   this.state.name,
+    //   this.state.doB,
+    //   this.state.startDate
+    // );
     return (
       <div className="container">
         <div className="row">
           <h1>Nhân viên</h1>
-          <Button
+          {/* <Button
             onClick={this.onToggleModal}
             color="primary"
             className="m-auto"
           >
             <span className="fa fa-plus"></span>
-          </Button>
+          </Button> */}
           {/* Modal thêm nhân viên */}
-          <Modal isOpen={this.state.isModalOpen}>
+          {/* <Modal isOpen={this.state.isModalOpen}>
             <ModalHeader toggle={this.onToggleModal}>
               Thêm nhân viên
             </ModalHeader>
@@ -278,7 +278,7 @@ class StaffList extends Component {
                 </FormGroup>
               </Form>
             </ModalBody>
-          </Modal>
+          </Modal> */}
           {/* --------------------- */}
           {/* Form tìm nhân viên */}
           <Search parentCallback={this.getSearchKey} />
