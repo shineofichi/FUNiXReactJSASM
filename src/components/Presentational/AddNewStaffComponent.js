@@ -35,6 +35,9 @@ class AddNewStaff extends Component {
       staffs: this.props.staffs,
     };
     this.onToggleModal = this.onToggleModal.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.onHandleAddStaff = this.onHandleAddStaff.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
   onToggleModal() {
     this.setState({
@@ -49,6 +52,11 @@ class AddNewStaff extends Component {
       [name]: value,
     });
   }
+  handleBlur = (field) => (evt) => {
+    this.setState({
+      touched: { ...this.state.touched, [field]: true },
+    });
+  };
   validate(name, doB, startDate) {
     const errors = {
       name: "",
@@ -63,10 +71,10 @@ class AddNewStaff extends Component {
     }
 
     if (this.state.touched.doB && doB < TODAY) {
-      errors.doB = "Yêu cầu nhập chính xác ngày";
+      errors.doB = "Yêu cầu nhập";
     }
     if (this.state.touched.startDate && startDate < TODAY) {
-      errors.startDate = "Yêu cầu nhập chính xác ngày";
+      errors.startDate = "Yêu cầu nhập";
     }
     return errors;
   }
@@ -79,19 +87,50 @@ class AddNewStaff extends Component {
       doB: this.state.doB,
       salaryScale: this.state.salaryScale,
       startDate: this.state.startDate,
-      department: {
-        id: "Dept01",
-        name: this.state.department,
-        numberOfStaff: 1,
-      },
+      department: this.defineDep(this.state.department),
       annualLeave: this.state.annualLeave,
       overTime: this.state.overTime,
       salary: this.state.salary,
       image: this.state.image,
     };
-    localStorage.setItem("newStaff", JSON.stringify(newStaff));
     this.state.staffs.push(newStaff);
-    localStorage.removeItem("newStaff");
+    this.props.sendInfo(newStaff);
+  }
+
+  defineDep(depname) {
+    switch (depname) {
+      case "Sale":
+        return {
+          id: "Dept01",
+          name: depname,
+          numberOfStaff: "",
+        };
+      case "HR":
+        return {
+          id: "Dept02",
+          name: depname,
+          numberOfStaff: "",
+        };
+      case "Marketing":
+        return {
+          id: "Dept03",
+          name: depname,
+          numberOfStaff: "",
+        };
+      case "IT":
+        return {
+          id: "Dept04",
+          name: depname,
+          numberOfStaff: "",
+        };
+      default:
+      case "Finance":
+        return {
+          id: "Dept05",
+          name: depname,
+          numberOfStaff: "",
+        };
+    }
   }
   render() {
     const errors = this.validate(
@@ -101,7 +140,7 @@ class AddNewStaff extends Component {
     );
     return (
       <div>
-        <Button onClick={this.onToggleModal} color="primary" className="m-auto">
+        <Button onClick={this.onToggleModal} color="primary">
           <span className="fa fa-plus"></span>
         </Button>
         <Modal isOpen={this.state.isModalOpen}>
@@ -190,6 +229,7 @@ class AddNewStaff extends Component {
                     id="salaryScale"
                     name="salaryScale"
                     defaultValue={this.state.salaryScale}
+                    onChange={this.handleInputChange}
                   ></Input>
                 </Col>
               </FormGroup>
@@ -203,6 +243,7 @@ class AddNewStaff extends Component {
                     id="annualLeave"
                     name="annualLeave"
                     defaultValue={this.state.annualLeave}
+                    onChange={this.handleInputChange}
                   ></Input>
                 </Col>
               </FormGroup>
@@ -216,6 +257,7 @@ class AddNewStaff extends Component {
                     id="overTime"
                     name="overTime"
                     defaultValue={this.state.overTime}
+                    onChange={this.handleInputChange}
                   ></Input>
                 </Col>
               </FormGroup>
@@ -225,6 +267,14 @@ class AddNewStaff extends Component {
                   value="submit"
                   color="primary"
                   className="offset-5"
+                  disabled={
+                    !this.state.name ||
+                    !this.state.doB ||
+                    !this.state.startDate ||
+                    this.state.salaryScale === "" ||
+                    this.state.annualLeave === "" ||
+                    this.state.overTime === ""
+                  }
                 >
                   Thêm
                 </Button>
