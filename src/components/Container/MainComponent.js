@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Route, Routes, useParams, Navigate } from "react-router-dom";
-import { STAFFS, DEPARTMENTS } from "../../shared/staffs";
 import StaffList from "../Presentational/StaffListComponent";
 import Header from "../Presentational/HeaderComponent";
 import Footer from "../Presentational/FooterComponent";
@@ -9,25 +8,25 @@ import StaffDetail from "../Presentational/StaffDetailComponent";
 import Salary from "../Presentational/SalaryComponent";
 import DepDetail from "../Presentational/DepDetailComponent";
 import SalaryDetail from "../Presentational/SalaryDetailComponent";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  return {
+    staffs: state.staffs,
+    departments: state.departments,
+    basicSalary: state.basicSalary,
+    overTimeSalary: state.overTimeSalary,
+  };
+};
 
 class Main extends Component {
-  constructor(prop) {
-    super(prop);
-    this.state = {
-      staffs: STAFFS,
-      departments: DEPARTMENTS,
-      basicSalary: 3000000,
-      overTimeSalary: 200000,
-    };
-  }
-
   render() {
     const StaffWithId = () => {
       const params = useParams();
       return (
         <StaffDetail
           staff={
-            this.state.staffs.filter(
+            this.props.staffs.filter(
               (staff) => staff.id === parseInt(params.id, 10)
             )[0]
           }
@@ -38,10 +37,10 @@ class Main extends Component {
       const params = useParams();
       return (
         <DepDetail
-          staffs={this.state.staffs.filter(
+          staffs={this.props.staffs.filter(
             (staff) => staff.department.id === params.id
           )}
-          dep={this.state.departments.filter((dep) => dep.id === params.id)[0]}
+          dep={this.props.departments.filter((dep) => dep.id === params.id)[0]}
         />
       );
     };
@@ -50,12 +49,12 @@ class Main extends Component {
       return (
         <SalaryDetail
           staff={
-            this.state.staffs.filter(
+            this.props.staffs.filter(
               (staff) => staff.id === parseInt(params.id, 10)
             )[0]
           }
-          basicSalary={this.state.basicSalary}
-          overTimeSalary={this.state.overTimeSalary}
+          basicSalary={this.props.basicSalary}
+          overTimeSalary={this.props.overTimeSalary}
         />
       );
     };
@@ -65,21 +64,21 @@ class Main extends Component {
         <Routes>
           <Route
             path="/staffs"
-            element={<StaffList staffs={this.state.staffs} />}
+            element={<StaffList staffs={this.props.staffs} />}
           />
           <Route path="/staffs/:id" element={<StaffWithId />} />
           <Route
             path="/dep"
-            element={<Department deps={this.state.departments} />}
+            element={<Department deps={this.props.departments} />}
           />
           <Route path="/dep/:id" element={<DepDetailWithId />} />
           <Route
             path="/salary"
             element={
               <Salary
-                staffs={this.state.staffs}
-                basic={this.state.basicSalary}
-                overTimeSalary={this.state.overTimeSalary}
+                staffs={this.props.staffs}
+                basic={this.props.basicSalary}
+                overTimeSalary={this.props.overTimeSalary}
               />
             }
           />
@@ -87,9 +86,9 @@ class Main extends Component {
             path="/salary/:id"
             element={
               <SalaryWithId
-                staffs={this.state.staffs}
-                basic={this.state.basicSalary}
-                overTimeSalary={this.state.overTimeSalary}
+                staffs={this.props.staffs}
+                basic={this.props.basicSalary}
+                overTimeSalary={this.props.overTimeSalary}
               />
             }
           />
@@ -102,4 +101,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default connect(mapStateToProps)(Main);
