@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import { LocalForm, Control, Errors } from "react-redux-form";
 
+// Validate condition
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 const minLength = (len) => (val) => val && val.length >= len;
@@ -36,29 +37,14 @@ class AddNewStaff extends Component {
       staffs: this.props.staffs,
     };
     this.onToggleModal = this.onToggleModal.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
     this.onHandleAddStaff = this.onHandleAddStaff.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
   }
   onToggleModal() {
     this.setState({
       isModalOpen: !this.state.isModalOpen,
     });
   }
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({
-      [name]: value,
-    });
-  }
-  handleBlur = (field) => (evt) => {
-    this.setState({
-      touched: { ...this.state.touched, [field]: true },
-    });
-  };
-
+  // TODO: send the info to parent
   onHandleAddStaff(values) {
     console.log(values);
     this.onToggleModal();
@@ -78,6 +64,8 @@ class AddNewStaff extends Component {
     this.props.sendInfo(newStaff);
   }
 
+  // TODO: define the Department object
+  // @param: department's name
   defineDep(depname) {
     switch (depname) {
       case "Sale":

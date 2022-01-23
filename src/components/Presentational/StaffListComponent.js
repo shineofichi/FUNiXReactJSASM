@@ -45,7 +45,6 @@ class StaffList extends Component {
       <div className="container">
         <div className="row">
           <h1>Nhân viên</h1>
-          {/* Modal thêm nhân viên */}
           <div className="m-auto">
             {" "}
             <AddNewStaff
@@ -53,12 +52,9 @@ class StaffList extends Component {
               sendInfo={this.getNewStaffInfo}
             />
           </div>
-          {/* --------------------- */}
-          {/* Form tìm nhân viên */}
           <div className="pt-2 ml-auto">
             <Search parentCallback={this.getSearchKey} />
           </div>
-          {/* --------------------- */}
         </div>
         <hr></hr>
         <div className="row">{stafflist}</div>
