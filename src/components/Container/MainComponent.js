@@ -9,6 +9,11 @@ import Salary from "../Presentational/SalaryComponent";
 import DepDetail from "../Presentational/DepDetailComponent";
 import SalaryDetail from "../Presentational/SalaryDetailComponent";
 import { connect } from "react-redux";
+import {
+  fetchDepts,
+  fetchStaffs,
+  fetchSalary,
+} from "../../redux/ActionCreator";
 
 const mapStateToProps = (state) => {
   return {
@@ -19,6 +24,12 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispathToProps = (dispath) => ({
+  fetchSalary: () => dispath(fetchSalary()),
+  fetchStaffs: () => dispath(fetchStaffs()),
+  fetchDepts: () => dispath(fetchDepts()),
+});
+
 class Main extends Component {
   render() {
     const StaffWithId = () => {
@@ -26,7 +37,7 @@ class Main extends Component {
       return (
         <StaffDetail
           staff={
-            this.props.staffs.filter(
+            this.props.staffs.staffs.filter(
               (staff) => staff.id === parseInt(params.id, 10)
             )[0]
           }
@@ -37,10 +48,14 @@ class Main extends Component {
       const params = useParams();
       return (
         <DepDetail
-          staffs={this.props.staffs.filter(
+          staffs={this.props.staffs.staffs.filter(
             (staff) => staff.department.id === params.id
           )}
-          dep={this.props.departments.filter((dep) => dep.id === params.id)[0]}
+          dep={
+            this.props.departments.departments.filter(
+              (dep) => dep.id === params.id
+            )[0]
+          }
         />
       );
     };
@@ -49,12 +64,12 @@ class Main extends Component {
       return (
         <SalaryDetail
           staff={
-            this.props.staffs.filter(
+            this.props.staffs.staffs.filter(
               (staff) => staff.id === parseInt(params.id, 10)
             )[0]
           }
-          basicSalary={this.props.basicSalary}
-          overTimeSalary={this.props.overTimeSalary}
+          basicSalary={3000000}
+          overTimeSalary={200000}
         />
       );
     };
@@ -64,21 +79,21 @@ class Main extends Component {
         <Routes>
           <Route
             path="/staffs"
-            element={<StaffList staffs={this.props.staffs} />}
+            element={<StaffList staffs={this.props.staffs.staffs} />}
           />
           <Route path="/staffs/:id" element={<StaffWithId />} />
           <Route
             path="/dep"
-            element={<Department deps={this.props.departments} />}
+            element={<Department deps={this.props.departments.departments} />}
           />
           <Route path="/dep/:id" element={<DepDetailWithId />} />
           <Route
             path="/salary"
             element={
               <Salary
-                staffs={this.props.staffs}
-                basic={this.props.basicSalary}
-                overTimeSalary={this.props.overTimeSalary}
+                staffs={this.props.staffs.staffs}
+                basic={3000000}
+                overTimeSalary={200000}
               />
             }
           />
@@ -86,9 +101,9 @@ class Main extends Component {
             path="/salary/:id"
             element={
               <SalaryWithId
-                staffs={this.props.staffs}
-                basic={this.props.basicSalary}
-                overTimeSalary={this.props.overTimeSalary}
+                staffs={this.props.staffs.staffs}
+                basic={3000000}
+                overTimeSalary={200000}
               />
             }
           />
@@ -101,4 +116,4 @@ class Main extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps, mapDispathToProps)(Main);

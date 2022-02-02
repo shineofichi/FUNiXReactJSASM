@@ -1,14 +1,17 @@
-import { STAFFS, DEPARTMENTS } from "../shared/staffs";
+import { combineReducers } from "redux";
+import StaffReducer from "./staffs";
+import DepartmentReducer from "./departments";
+import { createForms } from "react-redux-form";
+import SalaryReducer from "./salary";
+import { initidalAddStaffForm } from "./addStaffForm";
 
-const initialState = {
-  staffs: STAFFS,
-  departments: DEPARTMENTS,
-  basicSalary: 3000000,
-  overTimeSalary: 200000,
-};
+const Reducer = combineReducers({
+  staffs: StaffReducer,
+  departments: DepartmentReducer,
+  salary: SalaryReducer,
+  ...createForms({
+    addStaff: initidalAddStaffForm,
+  }),
+});
 
-const staffReducer = (state = initialState, action) => {
-  return state;
-};
-
-export default staffReducer;
+export default Reducer;
