@@ -77,7 +77,13 @@ class Main extends Component {
         <Routes>
           <Route
             path="/staffs"
-            element={<StaffList staffs={this.props.staffs.staffs} />}
+            element={
+              <StaffList
+                staffs={this.props.staffs.staffs}
+                isLoading={this.props.staffs.isStaffLoading}
+                errMess={this.props.staffs.errStaffMess}
+              />
+            }
           />
           <Route path="/staffs/:id" element={<StaffWithId />} />
           <Route
@@ -91,7 +97,6 @@ class Main extends Component {
           />
           <Route path="*" element={<Navigate to="/staffs" />} />
         </Routes>
-
         <Footer />
       </div>
     );

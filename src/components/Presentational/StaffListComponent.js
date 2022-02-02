@@ -3,7 +3,8 @@ import { Card, CardImg, CardTitle } from "reactstrap";
 import { Link } from "react-router-dom";
 import Search from "./SearchComponent";
 import AddNewStaff from "./AddNewStaffComponent";
-import { baseUrl } from "../../shared/baseUrl";
+// import { baseUrl } from "../../shared/baseUrl";
+import { Loading } from "./LoadingComponent";
 
 class StaffList extends Component {
   constructor(props) {
@@ -26,41 +27,59 @@ class StaffList extends Component {
     });
   };
   render() {
-    const stafflist = this.props.staffs
-      .filter((staff) =>
-        staff.name.toLowerCase().includes(this.state.searchName.toLowerCase())
-      )
-      .map((staff) => {
-        return (
-          <div key={staff.id} className="col-12 col-md-4 col-lg-2 p-2">
-            <Link to={`/staffs/${staff.id}`}>
-              <Card>
-                <CardImg src={baseUrl + staff.image} alt={staff.name} />
-                <CardTitle className="text-center">{staff.name}</CardTitle>
-              </Card>
-            </Link>
-          </div>
-        );
-      });
-    return (
-      <div className="container">
-        <div className="row">
-          <h1>Nhân viên</h1>
-          <div className="m-auto">
-            {" "}
-            <AddNewStaff
-              staffs={this.props.staffs}
-              sendInfo={this.getNewStaffInfo}
-            />
-          </div>
-          <div className="pt-2 ml-auto">
-            <Search parentCallback={this.getSearchKey} />
+    if (this.props.isLoading) {
+      return (
+        <div className="container">
+          <div className="row">
+            <Loading />
           </div>
         </div>
-        <hr></hr>
-        <div className="row">{stafflist}</div>
-      </div>
-    );
+      );
+    } else if (this.props.errMess) {
+      return (
+        <div className="container">
+          <div className="row">
+            <h5>{this.props.errMess}</h5>
+          </div>
+        </div>
+      );
+    } else {
+      const stafflist = this.props.staffs
+        .filter((staff) =>
+          staff.name.toLowerCase().includes(this.state.searchName.toLowerCase())
+        )
+        .map((staff) => {
+          return (
+            <div key={staff.id} className="col-12 col-md-4 col-lg-2 p-2">
+              <Link to={`/staffs/${staff.id}`}>
+                <Card>
+                  <CardImg src={staff.image} alt={staff.name} />
+                  <CardTitle className="text-center">{staff.name}</CardTitle>
+                </Card>
+              </Link>
+            </div>
+          );
+        });
+      return (
+        <div className="container">
+          <div className="row">
+            <h1>Nhân viên</h1>
+            <div className="m-auto">
+              {" "}
+              <AddNewStaff
+                staffs={this.props.staffs}
+                sendInfo={this.getNewStaffInfo}
+              />
+            </div>
+            <div className="pt-2 ml-auto">
+              <Search parentCallback={this.getSearchKey} />
+            </div>
+          </div>
+          <hr></hr>
+          <div className="row">{stafflist}</div>
+        </div>
+      );
+    }
   }
 }
 
