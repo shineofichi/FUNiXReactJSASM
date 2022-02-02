@@ -2,7 +2,7 @@ import { CardImg, CardText, CardTitle } from "reactstrap";
 import BreadcrumbTree from "./BreadcrumbComponent";
 import dateFormat from "dateformat";
 
-function StaffDetail({ staff }) {
+function StaffDetail({ staff, department }) {
   return (
     <div className="container">
       <BreadcrumbTree
@@ -20,7 +20,7 @@ function StaffDetail({ staff }) {
           <CardText>
             Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}
           </CardText>
-          <CardText>Phòng ban: {staff.department.name}</CardText>
+          <CardText>Phòng ban: {department.name}</CardText>
           <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
           <CardText>Số giờ đã làm thêm: {staff.overTime}</CardText>
         </div>

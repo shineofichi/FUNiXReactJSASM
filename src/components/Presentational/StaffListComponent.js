@@ -3,6 +3,7 @@ import { Card, CardImg, CardTitle } from "reactstrap";
 import { Link } from "react-router-dom";
 import Search from "./SearchComponent";
 import AddNewStaff from "./AddNewStaffComponent";
+import { baseUrl } from "../../shared/baseUrl";
 
 class StaffList extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class StaffList extends Component {
           <div key={staff.id} className="col-12 col-md-4 col-lg-2 p-2">
             <Link to={`/staffs/${staff.id}`}>
               <Card>
-                <CardImg src={staff.image} alt={staff.name} />
+                <CardImg src={baseUrl + staff.image} alt={staff.name} />
                 <CardTitle className="text-center">{staff.name}</CardTitle>
               </Card>
             </Link>

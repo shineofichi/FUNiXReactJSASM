@@ -75,7 +75,7 @@ export const deptsFailed = (errMess) => ({
 
 export const fetchSalary = () => (dispath) => {
   dispath(salaryLoading(true));
-  return fetch(baseUrl + "salary")
+  return fetch(baseUrl + "staffsSalary")
     .then(
       (response) => {
         if (response.ok) {
