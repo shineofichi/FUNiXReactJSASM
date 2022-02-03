@@ -56,8 +56,7 @@ class AddNewStaff extends Component {
       department: this.defineDep(values.department),
       annualLeave: values.annualLeave,
       overTime: values.overTime,
-      salary: this.state.salary,
-      image: this.state.image,
+      image: "/asset/images/alberto.png",
     };
     this.props.postAddNewStaff(newStaff);
   }

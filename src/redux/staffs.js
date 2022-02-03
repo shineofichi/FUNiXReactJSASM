@@ -10,7 +10,6 @@ const StaffReducer = (
         ...state,
         isStaffLoading: true,
         errStaffMess: null,
-        staffs: [],
       };
     case ActionTypes.STAFFS_FAILED:
       return {
@@ -29,6 +28,11 @@ const StaffReducer = (
       return {
         ...state,
         staffs: state.staffs.concat(action.payload),
+      };
+    case ActionTypes.DELETE_STAFF:
+      return {
+        ...state,
+        staffs: state.staffs.filter((staff) => staff.id !== action.payload),
       };
     default:
       return state;

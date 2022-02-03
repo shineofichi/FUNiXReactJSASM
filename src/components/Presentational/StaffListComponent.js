@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardImg, CardTitle } from "reactstrap";
+import { Button, Card, CardImg, CardTitle } from "reactstrap";
 import { Link } from "react-router-dom";
 import Search from "./SearchComponent";
 import AddNewStaff from "./AddNewStaffComponent";
@@ -44,12 +44,20 @@ class StaffList extends Component {
         .map((staff) => {
           return (
             <div key={staff.id} className="col-12 col-md-4 col-lg-2 p-2">
-              <Link to={`/staffs/${staff.id}`}>
-                <Card>
-                  <CardImg src={staff.image} alt={staff.name} />
-                  <CardTitle className="text-center">{staff.name}</CardTitle>
-                </Card>
-              </Link>
+              <Card>
+                {" "}
+                <Link to={`/staffs/${staff.id}`}>
+                  <CardImg src={staff.image} alt={staff.name} />{" "}
+                </Link>
+                <CardTitle className="text-center">{staff.name}</CardTitle>
+                <Button>Sửa</Button>
+                <Button
+                  className="btn btn-danger"
+                  onClick={() => this.props.deleteStaff(staff.id)}
+                >
+                  Xóa
+                </Button>
+              </Card>
             </div>
           );
         });

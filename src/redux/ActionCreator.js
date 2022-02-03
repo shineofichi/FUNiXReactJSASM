@@ -1,5 +1,6 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../shared/baseUrl";
+import { Errors } from "react-redux-form";
 
 export const fetchStaffs = () => (dispath) => {
   dispath(staffsLoading(true));
@@ -70,7 +71,8 @@ export const postAddNewStaff = (staff) => (dispath) => {
         }
       },
       (error) => {
-        throw error;
+        var errmess = new Errors(error.message);
+        throw errmess;
       }
     )
     .then((response) => response.json())
@@ -80,11 +82,27 @@ export const postAddNewStaff = (staff) => (dispath) => {
       alert("Error " + error.message);
     });
 };
-
 export const addStaff = (staff) => ({
   type: ActionTypes.ADD_STAFF,
   payload: {
     staff: staff,
+  },
+});
+
+export const deleteStaff = (id) => (dispath) => {
+  return fetch(baseUrl + "staffs/" + id, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      console.log(response);
+    })
+    .then(dispath(delStaff(id)));
+};
+
+export const delStaff = (id) => ({
+  type: ActionTypes.DELETE_STAFF,
+  payload: {
+    id: id,
   },
 });
 
