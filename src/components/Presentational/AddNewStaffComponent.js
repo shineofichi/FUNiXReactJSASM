@@ -22,19 +22,11 @@ class AddNewStaff extends Component {
     super(props);
     this.state = {
       isModalOpen: false,
-      id: "",
-      salaryScale: 1,
-      department: "Finance",
-      annualLeave: 0,
-      overTime: 0,
-      salary: "",
-      image: "/asset/images/alberto.png",
       touched: {
         name: false,
         doB: false,
         startDate: false,
       },
-      staffs: this.props.staffs,
     };
     this.onToggleModal = this.onToggleModal.bind(this);
     this.onHandleAddStaff = this.onHandleAddStaff.bind(this);

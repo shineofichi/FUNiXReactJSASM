@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Route, Routes, useParams, Navigate } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  useParams,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import StaffList from "../Presentational/StaffListComponent";
 import Header from "../Presentational/HeaderComponent";
 import Footer from "../Presentational/FooterComponent";
@@ -15,6 +22,19 @@ import {
   postAddNewStaff,
   deleteStaff,
 } from "../../redux/ActionCreator";
+
+// WRAPPER  withRouter for use Location
+// Source : https://reactrouter.com/docs/en/v6/faq
+function withRouter(Component) {
+  function ComponentWithRouterProp(props) {
+    let location = useLocation();
+    let navigate = useNavigate();
+    let params = useParams();
+    return <Component {...props} router={{ location, navigate, params }} />;
+  }
+
+  return ComponentWithRouterProp;
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -112,4 +132,4 @@ class Main extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispathToProps)(Main);
+export default withRouter(connect(mapStateToProps, mapDispathToProps)(Main));
