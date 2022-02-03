@@ -39,6 +39,7 @@ export const staffsFailed = (errMess) => ({
 });
 
 export const postAddNewStaff = (staff) => (dispath) => {
+  dispath(staffsLoading(true));
   const newStaff = {
     id: staff.id,
     name: staff.name,
@@ -76,35 +77,75 @@ export const postAddNewStaff = (staff) => (dispath) => {
       }
     )
     .then((response) => response.json())
-    .then((response) => dispath(addStaff(response)))
+    .then((response) => dispath(addStaffs(response)))
     .catch((error) => {
       console.log("POST STAFF INFORMATION ", error.message);
       alert("Error " + error.message);
     });
 };
-export const addStaff = (staff) => ({
-  type: ActionTypes.ADD_STAFF,
-  payload: {
-    staff: staff,
-  },
-});
 
 export const deleteStaff = (id) => (dispath) => {
+  dispath(staffsLoading(true));
   return fetch(baseUrl + "staffs/" + id, {
     method: "DELETE",
+    header: { "Content-Type": "application/json" },
   })
-    .then((response) => {
-      console.log(response);
-    })
-    .then(dispath(delStaff(id)));
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + " : " + response.statusText
+          );
+          error.message = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Errors(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispath(addStaffs(response)))
+    .catch((error) => {
+      console.log("DELETE STAFF ERROR ", error.message);
+      alert("Error " + error.message);
+    });
 };
 
-export const delStaff = (id) => ({
-  type: ActionTypes.DELETE_STAFF,
-  payload: {
-    id: id,
-  },
-});
+export const editStaffInfo = (staff) => (dispath) => {
+  dispath(staffsLoading(true));
+  return fetch(baseUrl + "staffs/" + staff.id, {
+    method: "PATCH",
+    body: JSON.stringify(staff),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + " : " + response.statusText
+          );
+          error.message = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Errors(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispath(addStaffs(response)))
+    .catch((error) => {
+      console.log("EDIT STAFF ERROR ", error.message);
+      alert("Error " + error.message);
+    });
+};
 
 export const fetchDepts = () => (dispath) => {
   dispath(deptsLoading(true));

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Card, CardImg, CardTitle } from "reactstrap";
+import { Button, ButtonGroup, Card, CardImg, CardTitle } from "reactstrap";
 import { Link } from "react-router-dom";
 import Search from "./SearchComponent";
 import AddNewStaff from "./AddNewStaffComponent";
@@ -13,11 +13,22 @@ class StaffList extends Component {
       searchName: "",
     };
     this.getSearchKey = this.getSearchKey.bind(this);
+    this.handleEditBtn = this.handleEditBtn.bind(this);
+    this.handleDeleteBtn = this.handleDeleteBtn.bind(this);
   }
   getSearchKey = (key) => {
     this.setState({
       searchName: key,
     });
+  };
+  handleEditBtn = () => {};
+  handleDeleteBtn = (staff) => {
+    const isDelete = window.confirm(
+      "Xác nhận xóa nhân viên " + staff.name + "?"
+    );
+    if (isDelete) {
+      this.props.deleteStaff(staff.id);
+    }
   };
   render() {
     if (this.props.isLoading) {
@@ -50,13 +61,20 @@ class StaffList extends Component {
                   <CardImg src={staff.image} alt={staff.name} />{" "}
                 </Link>
                 <CardTitle className="text-center">{staff.name}</CardTitle>
-                <Button>Sửa</Button>
-                <Button
-                  className="btn btn-danger"
-                  onClick={() => this.props.deleteStaff(staff.id)}
-                >
-                  Xóa
-                </Button>
+                <ButtonGroup>
+                  <Button
+                    className="btn btn-success btn-block"
+                    onClick={() => this.handleEditBtn(staff.id)}
+                  >
+                    Sửa
+                  </Button>
+                  <Button
+                    className="btn btn-danger"
+                    onClick={() => this.handleDeleteBtn(staff)}
+                  >
+                    Xóa
+                  </Button>
+                </ButtonGroup>
               </Card>
             </div>
           );

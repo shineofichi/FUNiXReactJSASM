@@ -21,6 +21,7 @@ import {
   fetchSalary,
   postAddNewStaff,
   deleteStaff,
+  editStaffInfo,
 } from "../../redux/ActionCreator";
 
 // WRAPPER  withRouter for use Location
@@ -50,6 +51,7 @@ const mapDispathToProps = (dispath) => ({
   fetchDepts: () => dispath(fetchDepts()),
   postAddNewStaff: (staff) => dispath(postAddNewStaff(staff)),
   deleteStaff: (id) => dispath(deleteStaff(id)),
+  editStaffInfo: (staff) => dispath(editStaffInfo(staff)),
 });
 
 class Main extends Component {
@@ -57,9 +59,6 @@ class Main extends Component {
     this.props.fetchDepts();
     this.props.fetchStaffs();
     this.props.fetchSalary();
-  }
-  componentDidUpdate() {
-    console.log("Component is updated!");
   }
   render() {
     const StaffWithId = () => {
