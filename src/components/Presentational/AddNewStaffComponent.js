@@ -28,7 +28,7 @@ class AddNewStaff extends Component {
       annualLeave: 0,
       overTime: 0,
       salary: "",
-      image: "/assets/images/alberto.png",
+      image: "/asset/images/alberto.png",
       touched: {
         name: false,
         doB: false,
@@ -46,7 +46,6 @@ class AddNewStaff extends Component {
   }
   // TODO: send the info to parent
   onHandleAddStaff(values) {
-    console.log(values);
     this.onToggleModal();
     const newStaff = {
       id: this.props.staffs.length,
@@ -60,8 +59,7 @@ class AddNewStaff extends Component {
       salary: this.state.salary,
       image: this.state.image,
     };
-    this.state.staffs.push(newStaff);
-    this.props.sendInfo(newStaff);
+    this.props.postAddNewStaff(newStaff);
   }
 
   // TODO: define the Department object

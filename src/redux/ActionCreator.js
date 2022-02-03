@@ -37,6 +37,57 @@ export const staffsFailed = (errMess) => ({
   payload: errMess,
 });
 
+export const postAddNewStaff = (staff) => (dispath) => {
+  const newStaff = {
+    id: staff.id,
+    name: staff.name,
+    doB: staff.doB,
+    salaryScale: staff.salaryScale,
+    startDate: staff.startDate,
+    departmentId: staff.department.id,
+    annualLeave: staff.annualLeave,
+    overTime: staff.overTime,
+    image: staff.image,
+  };
+  return fetch(baseUrl + "staffs", {
+    method: "POST",
+    body: JSON.stringify(newStaff),
+    headers: {
+      "Content-type": "application/json",
+    },
+    credential: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + " : " + response.statusText
+          );
+          error.message = response;
+          throw error;
+        }
+      },
+      (error) => {
+        throw error;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispath(addStaff(response)))
+    .catch((error) => {
+      console.log("POST STAFF INFORMATION ", error.message);
+      alert("Error " + error.message);
+    });
+};
+
+export const addStaff = (staff) => ({
+  type: ActionTypes.ADD_STAFF,
+  payload: {
+    staff: staff,
+  },
+});
+
 export const fetchDepts = () => (dispath) => {
   dispath(deptsLoading(true));
   return fetch(baseUrl + "departments")

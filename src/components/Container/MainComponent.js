@@ -12,6 +12,7 @@ import {
   fetchDepts,
   fetchStaffs,
   fetchSalary,
+  postAddNewStaff,
 } from "../../redux/ActionCreator";
 
 const mapStateToProps = (state) => {
@@ -26,6 +27,7 @@ const mapDispathToProps = (dispath) => ({
   fetchSalary: () => dispath(fetchSalary()),
   fetchStaffs: () => dispath(fetchStaffs()),
   fetchDepts: () => dispath(fetchDepts()),
+  postAddNewStaff: (staff) => dispath(postAddNewStaff(staff)),
 });
 
 class Main extends Component {
@@ -34,6 +36,7 @@ class Main extends Component {
     this.props.fetchStaffs();
     this.props.fetchSalary();
   }
+
   render() {
     const StaffWithId = () => {
       const params = useParams();
@@ -82,6 +85,7 @@ class Main extends Component {
                 staffs={this.props.staffs.staffs}
                 isLoading={this.props.staffs.isStaffLoading}
                 errMess={this.props.staffs.errStaffMess}
+                postAddNewStaff={this.props.postAddNewStaff}
               />
             }
           />

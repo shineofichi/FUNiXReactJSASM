@@ -11,19 +11,12 @@ class StaffList extends Component {
     super(props);
     this.state = {
       searchName: "",
-      newStaff: {},
     };
     this.getSearchKey = this.getSearchKey.bind(this);
-    this.getNewStaffInfo = this.getNewStaffInfo.bind(this);
   }
   getSearchKey = (key) => {
     this.setState({
       searchName: key,
-    });
-  };
-  getNewStaffInfo = (info) => {
-    this.setState({
-      newStaff: info,
     });
   };
   render() {
@@ -68,7 +61,7 @@ class StaffList extends Component {
               {" "}
               <AddNewStaff
                 staffs={this.props.staffs}
-                sendInfo={this.getNewStaffInfo}
+                postAddNewStaff={this.props.postAddNewStaff}
               />
             </div>
             <div className="pt-2 ml-auto">
