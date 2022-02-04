@@ -96,7 +96,7 @@ export const postAddNewStaff = (staff) => (dispath) => {
 export const deleteStaff = (id) => (dispath) => {
   dispath(staffsLoading(true));
   dispath(delStaff(id));
-  return fetch(baseUrl + "staffs", {
+  return fetch(baseUrl + "staffs/" + id, {
     method: "DELETE",
     header: { "Content-Type": "application/json" },
   })
