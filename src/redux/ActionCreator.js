@@ -37,6 +37,14 @@ export const staffsFailed = (errMess) => ({
   type: ActionTypes.STAFFS_FAILED,
   payload: errMess,
 });
+export const addStaff = (staff) => ({
+  type: ActionTypes.ADD_STAFF,
+  payload: staff,
+});
+export const delStaff = (id) => ({
+  type: ActionTypes.DELETE_STAFF,
+  payload: id,
+});
 
 export const postAddNewStaff = (staff) => (dispath) => {
   dispath(staffsLoading(true));
@@ -51,6 +59,7 @@ export const postAddNewStaff = (staff) => (dispath) => {
     overTime: staff.overTime,
     image: staff.image,
   };
+  dispath(addStaff(newStaff));
   return fetch(baseUrl + "staffs", {
     method: "POST",
     body: JSON.stringify(newStaff),
@@ -86,7 +95,8 @@ export const postAddNewStaff = (staff) => (dispath) => {
 
 export const deleteStaff = (id) => (dispath) => {
   dispath(staffsLoading(true));
-  return fetch(baseUrl + "staffs/" + id, {
+  dispath(delStaff(id));
+  return fetch(baseUrl + "staffs", {
     method: "DELETE",
     header: { "Content-Type": "application/json" },
   })
@@ -117,10 +127,13 @@ export const deleteStaff = (id) => (dispath) => {
 
 export const editStaffInfo = (staff) => (dispath) => {
   dispath(staffsLoading(true));
-  return fetch(baseUrl + "staffs/" + staff.id, {
+  return fetch(baseUrl + "staffs", {
     method: "PATCH",
     body: JSON.stringify(staff),
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-type": "application/json",
+    },
+    credential: "same-origin",
   })
     .then(
       (response) => {

@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Button, ButtonGroup, Card, CardImg, CardTitle } from "reactstrap";
+import { Button, Card, CardImg, CardTitle } from "reactstrap";
 import { Link } from "react-router-dom";
 import Search from "./SearchComponent";
 import AddNewStaff from "./AddNewStaffComponent";
 // import { baseUrl } from "../../shared/baseUrl";
 import { Loading } from "./LoadingComponent";
+import EditStaff from "./StaffInfomationForm";
 
 class StaffList extends Component {
   constructor(props) {
@@ -13,7 +14,6 @@ class StaffList extends Component {
       searchName: "",
     };
     this.getSearchKey = this.getSearchKey.bind(this);
-    this.handleEditBtn = this.handleEditBtn.bind(this);
     this.handleDeleteBtn = this.handleDeleteBtn.bind(this);
   }
   getSearchKey = (key) => {
@@ -21,7 +21,6 @@ class StaffList extends Component {
       searchName: key,
     });
   };
-  handleEditBtn = () => {};
   handleDeleteBtn = (staff) => {
     const isDelete = window.confirm(
       "Xác nhận xóa nhân viên " + staff.name + "?"
@@ -61,20 +60,18 @@ class StaffList extends Component {
                   <CardImg src={staff.image} alt={staff.name} />{" "}
                 </Link>
                 <CardTitle className="text-center">{staff.name}</CardTitle>
-                <ButtonGroup>
-                  <Button
-                    className="btn btn-success btn-block"
-                    onClick={() => this.handleEditBtn(staff.id)}
-                  >
-                    Sửa
-                  </Button>
-                  <Button
-                    className="btn btn-danger"
-                    onClick={() => this.handleDeleteBtn(staff)}
-                  >
-                    Xóa
-                  </Button>
-                </ButtonGroup>
+                <EditStaff
+                  staff={staff}
+                  editStaff={this.props.editStaffInfo}
+                  staffs={this.props.staffs}
+                />
+                <Button
+                  className="btn btn-danger"
+                  onClick={() => this.handleDeleteBtn(staff)}
+                >
+                  <span className="fa fa-trash"></span>
+                  Xóa
+                </Button>
               </Card>
             </div>
           );

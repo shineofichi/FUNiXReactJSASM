@@ -22,11 +22,6 @@ class AddNewStaff extends Component {
     super(props);
     this.state = {
       isModalOpen: false,
-      touched: {
-        name: false,
-        doB: false,
-        startDate: false,
-      },
     };
     this.onToggleModal = this.onToggleModal.bind(this);
     this.onHandleAddStaff = this.onHandleAddStaff.bind(this);
@@ -38,6 +33,7 @@ class AddNewStaff extends Component {
   }
   // TODO: send the info to parent
   onHandleAddStaff(values) {
+    console.log(values);
     this.onToggleModal();
     const newStaff = {
       id: this.props.staffs.length,
@@ -210,7 +206,7 @@ class AddNewStaff extends Component {
                     validators={{
                       isNumber,
                     }}
-                    defaultValue={this.state.salaryScale}
+                    defaultValue="1.0"
                   />
                   <Errors
                     className="text-danger"
@@ -235,7 +231,7 @@ class AddNewStaff extends Component {
                     validators={{
                       isNumber,
                     }}
-                    defaultValue={this.state.annualLeave}
+                    defaultValue="0"
                   />
                   <Errors
                     className="text-danger"
@@ -260,7 +256,7 @@ class AddNewStaff extends Component {
                     validators={{
                       isNumber,
                     }}
-                    defaultValue={this.state.overTime}
+                    defaultValue="0"
                   />
                   <Errors
                     className="text-danger"

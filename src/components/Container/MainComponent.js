@@ -110,6 +110,7 @@ class Main extends Component {
                 errMess={this.props.staffs.errStaffMess}
                 postAddNewStaff={this.props.postAddNewStaff}
                 deleteStaff={this.props.deleteStaff}
+                editStaffInfo={this.props.editStaffInfo}
               />
             }
           />
