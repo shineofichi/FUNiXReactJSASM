@@ -2,9 +2,10 @@ import React from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 export default function Search(props) {
+  // TODO: When hanle the submit button, sent search key to Parent
   const sendKey = (event) => {
     event.preventDefault();
-    props.parentCallback(event.target[0].value);
+    props.onSubmitSearhKey(event.target[0].value);
   };
   return (
     <div>

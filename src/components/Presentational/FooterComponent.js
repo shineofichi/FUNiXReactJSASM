@@ -1,6 +1,5 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-function Footer(props) {
+function Footer() {
   return (
     <div className="footer">
       <div className="container">

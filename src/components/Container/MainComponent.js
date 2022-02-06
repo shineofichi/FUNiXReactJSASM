@@ -13,7 +13,7 @@ import Footer from "../Presentational/FooterComponent";
 import Department from "../Presentational/DepartmentComponent";
 import StaffDetail from "../Presentational/StaffDetailComponent";
 import Salary from "../Presentational/SalaryComponent";
-import DepDetail from "../Presentational/DepDetailComponent";
+import DeptDetail from "../Presentational/DeptDetailComponent";
 import { connect } from "react-redux";
 import {
   fetchDepts,
@@ -78,13 +78,13 @@ class Main extends Component {
     const DepDetailWithId = () => {
       const params = useParams();
       return (
-        <DepDetail
+        <DeptDetail
           staffs={this.props.staffs.staffs.filter(
             (staff) => staff.departmentId === params.id
           )}
-          dep={
+          department={
             this.props.departments.departments.filter(
-              (dep) => dep.id === params.id
+              (dept) => dept.id === params.id
             )[0]
           }
         />

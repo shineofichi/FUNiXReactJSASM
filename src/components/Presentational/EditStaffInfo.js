@@ -4,10 +4,12 @@ import { defineDep } from "../../function/defineDep";
 import StaffInfoLocalForm from "./StaffInfoLocalForm";
 
 function EditStaffInfo(props) {
+  // Configure useState Hook for control Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onToggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+  // TODO: send Staff Information to edit
   const onHandleEditStaff = (values) => {
     onToggleModal();
     const staff = {

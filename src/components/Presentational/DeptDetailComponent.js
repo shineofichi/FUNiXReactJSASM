@@ -3,18 +3,18 @@ import BreadcrumbTree from "./BreadcrumbComponent";
 import { Loading } from "./LoadingComponent";
 import StaffList from "./StaffListComponent";
 
-function DepDetail(props) {
-  if (props.staffs && props.dep) {
+function DeptDetail(props) {
+  if (props.staffs && props.department) {
     return (
       <div>
         <div className="container">
           <BreadcrumbTree
-            thispage={props.dep.name}
+            thispage={props.department.name}
             prepage="Phòng ban"
             linktoback="/dep"
           />
           <div className="row">
-            <h1>{props.dep.name}</h1>
+            <h1>{props.department.name}</h1>
           </div>
         </div>
         <StaffList staffs={props.staffs} />
@@ -24,4 +24,4 @@ function DepDetail(props) {
     return <Loading />;
   }
 }
-export default DepDetail;
+export default DeptDetail;

@@ -84,7 +84,7 @@ function StaffList(props) {
             />
           </div>
           <div className="pt-2 ml-auto">
-            <Search parentCallback={getSearchKey} />
+            <Search onSubmitSearhKey={getSearchKey} />
           </div>
         </div>
         <hr></hr>

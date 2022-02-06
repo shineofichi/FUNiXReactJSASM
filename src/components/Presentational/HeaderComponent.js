@@ -10,6 +10,7 @@ import {
 import { NavLink } from "react-router-dom";
 
 function Header() {
+  // Configure useState Hook for control Navbar
   const [isNavOpen, setIsNavOpen] = useState(false);
   const onHandleToggle = () => {
     setIsNavOpen(!isNavOpen);

@@ -4,13 +4,13 @@ import { defineDep } from "../../function/defineDep";
 import StaffInfoLocalForm from "./StaffInfoLocalForm";
 
 function AddNewStaff(props) {
+  // Configure useState Hook for control Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onToggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-  // TODO: send the info to parent
+  // TODO: Send the info to parent
   const onHandleAddStaff = (values) => {
-    console.log(values);
     onToggleModal();
     const newStaff = {
       id: props.staffs.length,
@@ -25,7 +25,6 @@ function AddNewStaff(props) {
     };
     props.postAddNewStaff(newStaff);
   };
-
   // Initdial staff object for LocalForm
   const staff = {
     name: "",
