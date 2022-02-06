@@ -5,8 +5,9 @@ import { Loading } from "./LoadingComponent";
 import { Fade } from "react-animation-components";
 
 function StaffDetail(props) {
-  if (props.staff && !props.departments.isDeptLoading) {
-    const department = props.departments.departments.filter(
+  console.log(props);
+  if (props.staff && props.departments[0]) {
+    const department = props.departments.filter(
       (dept) => dept.id === props.staff.departmentId
     )[0];
     return (

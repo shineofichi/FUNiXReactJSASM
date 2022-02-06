@@ -58,7 +58,7 @@ function Main(props) {
             (staff) => staff.id === parseInt(params.id, 10)
           )[0]
         }
-        departments={props.departments}
+        departments={props.departments.departments}
       />
     );
   };
@@ -74,6 +74,8 @@ function Main(props) {
             (dept) => dept.id === params.id
           )[0]
         }
+        isStaffLoading={props.staffs.isStaffLoading}
+        isDeptLoading={props.departments.isDeptLoading}
       />
     );
   };
