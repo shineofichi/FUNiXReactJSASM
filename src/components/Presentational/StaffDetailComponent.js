@@ -3,6 +3,7 @@ import BreadcrumbTree from "./BreadcrumbComponent";
 import dateFormat from "dateformat";
 import { Loading } from "./LoadingComponent";
 import { Fade } from "react-animation-components";
+
 function StaffDetail(props) {
   if (props.staff && !props.departments.isDeptLoading) {
     const department = props.departments.departments.filter(
