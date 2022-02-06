@@ -79,7 +79,7 @@ function EditStaff(props) {
   return (
     <div>
       <Button onClick={onToggleModal} className="btn btn-primary col-12">
-        <span className="fa fa-pencil"></span> Sửa
+        <span className="fa fa-pencil"></span> Sửa
       </Button>
       <Modal isOpen={isModalOpen}>
         <ModalHeader toggle={onToggleModal}>

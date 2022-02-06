@@ -56,8 +56,8 @@ const mapDispathToProps = (dispath) => ({
 
 class Main extends Component {
   componentDidMount() {
-    this.props.fetchDepts();
     this.props.fetchStaffs();
+    this.props.fetchDepts();
     this.props.fetchSalary();
   }
   render() {
@@ -70,15 +70,7 @@ class Main extends Component {
               (staff) => staff.id === parseInt(params.id, 10)
             )[0]
           }
-          department={
-            this.props.departments.departments.filter(
-              (dept) =>
-                dept.id ===
-                this.props.staffs.staffs.filter(
-                  (staff) => staff.id === parseInt(params.id, 10)
-                )[0].departmentId
-            )[0]
-          }
+          departments={this.props.departments}
         />
       );
     };

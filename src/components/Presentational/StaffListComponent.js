@@ -3,7 +3,6 @@ import { Button, Card, CardImg, CardTitle } from "reactstrap";
 import { Link } from "react-router-dom";
 import Search from "./SearchComponent";
 import AddNewStaff from "./AddNewStaffComponent";
-// import { baseUrl } from "../../shared/baseUrl";
 import { Loading } from "./LoadingComponent";
 import EditStaff from "./StaffInfomationForm";
 
@@ -69,8 +68,7 @@ class StaffList extends Component {
                   className="btn btn-danger"
                   onClick={() => this.handleDeleteBtn(staff)}
                 >
-                  <span className="fa fa-trash"></span>
-                  Xóa
+                  <span className="fa fa-trash"></span> Xóa
                 </Button>
               </Card>
             </div>

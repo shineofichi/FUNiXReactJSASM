@@ -183,7 +183,7 @@ class AddNewStaff extends Component {
                     model=".department"
                     id="department"
                     name="department"
-                    defaultValue={this.state.department}
+                    defaultValue="Finance"
                   >
                     <option>Sale</option>
                     <option>HR</option>
