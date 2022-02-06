@@ -3,17 +3,15 @@ import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
 import { defineDep } from "../../function/defineDep";
 import StaffInfoLocalForm from "./StaffInfoLocalForm";
 
-function AddNewStaff(props) {
+function EditStaffInfo(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onToggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-  // TODO: send the info to parent
-  const onHandleAddStaff = (values) => {
-    console.log(values);
+  const onHandleEditStaff = (values) => {
     onToggleModal();
-    const newStaff = {
-      id: props.staffs.length,
+    const staff = {
+      id: props.staff.id,
       name: values.name,
       doB: values.doB,
       salaryScale: values.salaryScale,
@@ -23,34 +21,26 @@ function AddNewStaff(props) {
       overTime: values.overTime,
       image: "/asset/images/alberto.png",
     };
-    props.postAddNewStaff(newStaff);
+    props.editStaff(staff);
   };
 
-  // Initdial staff object for LocalForm
-  const staff = {
-    name: "",
-    doB: "",
-    salaryScale: 1.0,
-    startDate: "",
-    department: "Finance",
-    annualLeave: 0,
-    overTime: 0,
-  };
   return (
     <div>
-      <Button onClick={onToggleModal} color="primary">
-        <span className="fa fa-plus"></span>
+      <Button onClick={onToggleModal} className="btn btn-primary col-12">
+        <span className="fa fa-pencil"></span> Sửa
       </Button>
       <Modal isOpen={isModalOpen}>
-        <ModalHeader toggle={onToggleModal}>Thêm nhân viên</ModalHeader>
+        <ModalHeader toggle={onToggleModal}>
+          Cập nhật thông tin nhân viên
+        </ModalHeader>
         <ModalBody>
           <StaffInfoLocalForm
-            staff={staff}
-            onHandleSubmit={onHandleAddStaff}
+            staff={props.staff}
+            onHandleSubmit={onHandleEditStaff}
           ></StaffInfoLocalForm>
         </ModalBody>
       </Modal>
     </div>
   );
 }
-export default AddNewStaff;
+export default EditStaffInfo;

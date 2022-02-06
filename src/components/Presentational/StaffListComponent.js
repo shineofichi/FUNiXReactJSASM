@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Search from "./SearchComponent";
 import AddNewStaff from "./AddNewStaffComponent";
 import { Loading } from "./LoadingComponent";
-import EditStaff from "./StaffInfomationForm";
+import EditStaffInfo from "./EditStaffInfo";
 import { FadeTransform } from "react-animation-components";
 
 function StaffList(props) {
@@ -56,7 +56,7 @@ function StaffList(props) {
                   <CardImg src={staff.image} alt={staff.name} />{" "}
                 </Link>
                 <CardTitle className="text-center">{staff.name}</CardTitle>
-                <EditStaff
+                <EditStaffInfo
                   staff={staff}
                   editStaff={props.editStaffInfo}
                   staffs={props.staffs}
