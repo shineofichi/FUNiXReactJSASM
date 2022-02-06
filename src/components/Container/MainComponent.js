@@ -23,6 +23,7 @@ import {
   deleteStaff,
   editStaffInfo,
 } from "../../redux/ActionCreator";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 // WRAPPER  withRouter for use Location
 // Source : https://reactrouter.com/docs/en/v6/faq
@@ -92,32 +93,42 @@ class Main extends Component {
     return (
       <div>
         <Header />
-        <Routes>
-          <Route
-            path="/staffs"
-            element={
-              <StaffList
-                staffs={this.props.staffs.staffs}
-                isLoading={this.props.staffs.isStaffLoading}
-                errMess={this.props.staffs.errStaffMess}
-                postAddNewStaff={this.props.postAddNewStaff}
-                deleteStaff={this.props.deleteStaff}
-                editStaffInfo={this.props.editStaffInfo}
+        <TransitionGroup>
+          <CSSTransition
+            key={this.props.router.location.key}
+            classNames="page"
+            timeout={300}
+          >
+            <Routes location={this.props.router.location}>
+              <Route
+                path="/staffs"
+                element={
+                  <StaffList
+                    staffs={this.props.staffs.staffs}
+                    isLoading={this.props.staffs.isStaffLoading}
+                    errMess={this.props.staffs.errStaffMess}
+                    postAddNewStaff={this.props.postAddNewStaff}
+                    deleteStaff={this.props.deleteStaff}
+                    editStaffInfo={this.props.editStaffInfo}
+                  />
+                }
               />
-            }
-          />
-          <Route path="/staffs/:id" element={<StaffWithId />} />
-          <Route
-            path="/dep"
-            element={<Department deps={this.props.departments.departments} />}
-          />
-          <Route path="/dep/:id" element={<DepDetailWithId />} />
-          <Route
-            path="/salary"
-            element={<Salary salary={this.props.salary.salary} />}
-          />
-          <Route path="*" element={<Navigate to="/staffs" />} />
-        </Routes>
+              <Route path="/staffs/:id" element={<StaffWithId />} />
+              <Route
+                path="/dep"
+                element={
+                  <Department deps={this.props.departments.departments} />
+                }
+              />
+              <Route path="/dep/:id" element={<DepDetailWithId />} />
+              <Route
+                path="/salary"
+                element={<Salary salary={this.props.salary.salary} />}
+              />
+              <Route path="*" element={<Navigate to="/staffs" />} />
+            </Routes>
+          </CSSTransition>
+        </TransitionGroup>
         <Footer />
       </div>
     );

@@ -5,6 +5,7 @@ import Search from "./SearchComponent";
 import AddNewStaff from "./AddNewStaffComponent";
 import { Loading } from "./LoadingComponent";
 import EditStaff from "./StaffInfomationForm";
+import { FadeTransform } from "react-animation-components";
 
 class StaffList extends Component {
   constructor(props) {
@@ -53,24 +54,31 @@ class StaffList extends Component {
         .map((staff) => {
           return (
             <div key={staff.id} className="col-12 col-md-4 col-lg-2 p-2">
-              <Card>
-                {" "}
-                <Link to={`/staffs/${staff.id}`}>
-                  <CardImg src={staff.image} alt={staff.name} />{" "}
-                </Link>
-                <CardTitle className="text-center">{staff.name}</CardTitle>
-                <EditStaff
-                  staff={staff}
-                  editStaff={this.props.editStaffInfo}
-                  staffs={this.props.staffs}
-                />
-                <Button
-                  className="btn btn-danger"
-                  onClick={() => this.handleDeleteBtn(staff)}
-                >
-                  <span className="fa fa-trash"></span> Xóa
-                </Button>
-              </Card>
+              <FadeTransform
+                in
+                transformProps={{
+                  exitTransform: "scale(0.5) translateY(-50%)",
+                }}
+              >
+                <Card>
+                  {" "}
+                  <Link to={`/staffs/${staff.id}`}>
+                    <CardImg src={staff.image} alt={staff.name} />{" "}
+                  </Link>
+                  <CardTitle className="text-center">{staff.name}</CardTitle>
+                  <EditStaff
+                    staff={staff}
+                    editStaff={this.props.editStaffInfo}
+                    staffs={this.props.staffs}
+                  />
+                  <Button
+                    className="btn btn-danger"
+                    onClick={() => this.handleDeleteBtn(staff)}
+                  >
+                    <span className="fa fa-trash"></span> Xóa
+                  </Button>
+                </Card>
+              </FadeTransform>
             </div>
           );
         });

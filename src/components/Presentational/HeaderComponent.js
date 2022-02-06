@@ -28,13 +28,13 @@ class Header extends Component {
         <Navbar dark expand="md">
           <div className="container">
             <NavbarToggler onClick={this.onHandleToggle}></NavbarToggler>
-            <NavbarBrand className="mr-auto" href="/">
+            <NavbarBrand className="mr-auto" href="/staffs">
               <img
                 src="asset/images/logo.png"
                 height="30"
                 width="41"
                 alt="Funix"
-              />
+              />{" "}
               Ứng dụng quản lý nhân sự
             </NavbarBrand>
             <Collapse isOpen={this.state.isNavOpen} navbar>
