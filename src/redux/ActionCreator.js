@@ -231,3 +231,40 @@ export const salaryFailed = (errMess) => ({
   type: ActionTypes.SALARY_FAILED,
   payload: errMess,
 });
+
+// --------------
+export const fetchStaffsInDept = (deptId) => (dispath) => {
+  dispath(staffsInDeptLoading(true));
+  return fetch(baseUrl + "departments/" + deptId)
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.message = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((staff) => dispath(addStaffsInDept(staff)))
+    .catch((error) => dispath(staffInDeptFailed(error.message)));
+};
+export const staffsInDeptLoading = () => ({
+  type: ActionTypes.STAFF_IN_DEPT_LOADING,
+});
+export const addStaffsInDept = (staff) => ({
+  type: ActionTypes.ADD_STAFF_IN_DEPT,
+  payload: staff,
+});
+export const staffInDeptFailed = (errMess) => ({
+  type: ActionTypes.STAFF_IN_DEPT_FAILED,
+  payload: errMess,
+});

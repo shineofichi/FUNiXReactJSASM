@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Route,
   Routes,
@@ -21,17 +21,22 @@ import {
   postAddNewStaff,
   deleteStaff,
   editStaffInfo,
+  fetchStaffsInDept,
+  addStaffsInDept,
 } from "../../redux/ActionCreator";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
+// Set props base on redux state
 const mapStateToProps = (state) => {
   return {
     staffs: state.staffs,
     departments: state.departments,
     salary: state.salary,
+    staffInDept: state.staffInDept,
   };
 };
 
+// Dispath Action base on redux Action
 const mapDispathToProps = (dispath) => ({
   fetchSalary: () => dispath(fetchSalary()),
   fetchStaffs: () => dispath(fetchStaffs()),
@@ -39,16 +44,24 @@ const mapDispathToProps = (dispath) => ({
   postAddNewStaff: (staff) => dispath(postAddNewStaff(staff)),
   deleteStaff: (id) => dispath(deleteStaff(id)),
   editStaffInfo: (staff) => dispath(editStaffInfo(staff)),
+  fetchStaffsInDept: (deptId) => dispath(fetchStaffsInDept(deptId)),
+  addStaffsInDept: () => dispath(addStaffsInDept()),
 });
 
 function Main(props) {
+  const [deptId, setDeptId] = useState("");
+  // Fetch Data on server after rendered
   useEffect(() => {
     props.fetchStaffs();
     props.fetchDepts();
     props.fetchSalary();
+    props.fetchStaffsInDept(deptId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [deptId]);
+
+  // Hook for use TransitionGroup
   const location = useLocation();
+
   const StaffWithId = () => {
     const params = useParams();
     return (
@@ -64,11 +77,10 @@ function Main(props) {
   };
   const DepDetailWithId = () => {
     const params = useParams();
+    setDeptId(params.id);
     return (
       <DeptDetail
-        staffs={props.staffs.staffs.filter(
-          (staff) => staff.departmentId === params.id
-        )}
+        staffs={props.staffInDept.staffsInDept}
         department={
           props.departments.departments.filter(
             (dept) => dept.id === params.id
