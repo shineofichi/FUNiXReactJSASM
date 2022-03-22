@@ -23,7 +23,7 @@ function Header() {
           <NavbarToggler onClick={onHandleToggle}></NavbarToggler>
           <NavbarBrand className="mr-auto" href="/staffs">
             <img
-              src="asset/images/logo.png"
+              src="assets/images/logo.png"
               height="30"
               width="41"
               alt="Funix"
