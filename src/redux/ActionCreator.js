@@ -47,7 +47,6 @@ export const delStaff = (id) => ({
 });
 
 export const postAddNewStaff = (staff) => (dispath) => {
-  dispath(staffsLoading(true));
   const newStaff = {
     id: staff.id,
     name: staff.name,
@@ -59,7 +58,6 @@ export const postAddNewStaff = (staff) => (dispath) => {
     overTime: staff.overTime,
     image: staff.image,
   };
-  dispath(addStaff(newStaff));
   return fetch(baseUrl + "staffs", {
     method: "POST",
     body: JSON.stringify(newStaff),
@@ -87,6 +85,10 @@ export const postAddNewStaff = (staff) => (dispath) => {
     )
     .then((response) => response.json())
     .then((response) => dispath(addStaffs(response)))
+    .then(() => {
+      dispath(fetchDepts());
+      dispath(fetchSalary());
+    })
     .catch((error) => {
       console.log("POST STAFF INFORMATION ", error.message);
       alert("Error " + error.message);
@@ -95,7 +97,6 @@ export const postAddNewStaff = (staff) => (dispath) => {
 
 export const deleteStaff = (id) => (dispath) => {
   dispath(staffsLoading(true));
-  dispath(delStaff(id));
   return fetch(baseUrl + "staffs/" + id, {
     method: "DELETE",
     header: { "Content-Type": "application/json" },
@@ -119,6 +120,10 @@ export const deleteStaff = (id) => (dispath) => {
     )
     .then((response) => response.json())
     .then((response) => dispath(addStaffs(response)))
+    .then(() => {
+      dispath(fetchDepts());
+      dispath(fetchSalary());
+    })
     .catch((error) => {
       console.log("DELETE STAFF ERROR ", error.message);
       alert("Error " + error.message);
@@ -126,7 +131,6 @@ export const deleteStaff = (id) => (dispath) => {
 };
 
 export const editStaffInfo = (staff) => (dispath) => {
-  dispath(staffsLoading(true));
   return fetch(baseUrl + "staffs", {
     method: "PATCH",
     body: JSON.stringify(staff),
@@ -235,6 +239,7 @@ export const salaryFailed = (errMess) => ({
 // --------------
 export const fetchStaffsInDept = (deptId) => (dispath) => {
   dispath(staffsInDeptLoading(true));
+  dispath(changeDeptId(""));
   return fetch(baseUrl + "departments/" + deptId)
     .then(
       (response) => {
@@ -257,6 +262,10 @@ export const fetchStaffsInDept = (deptId) => (dispath) => {
     .then((staff) => dispath(addStaffsInDept(staff)))
     .catch((error) => dispath(staffInDeptFailed(error.message)));
 };
+export const handleDeptId = (id) => (dispath) => {
+  console.log(1);
+  dispath(changeDeptId(id));
+};
 export const staffsInDeptLoading = () => ({
   type: ActionTypes.STAFF_IN_DEPT_LOADING,
 });
@@ -267,4 +276,8 @@ export const addStaffsInDept = (staff) => ({
 export const staffInDeptFailed = (errMess) => ({
   type: ActionTypes.STAFF_IN_DEPT_FAILED,
   payload: errMess,
+});
+export const changeDeptId = (id) => ({
+  type: ActionTypes.CHANGE_DEPT_ID,
+  payload: id,
 });

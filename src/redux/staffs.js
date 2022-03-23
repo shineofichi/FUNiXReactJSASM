@@ -1,7 +1,7 @@
 import * as ActionTypes from "./ActionTypes";
 
 const StaffReducer = (
-  state = { isStaffLoading: false, errStaffMess: null, staffs: [] },
+  state = { isStaffLoading: true, errStaffMess: null, staffs: [] },
   action
 ) => {
   switch (action.type) {

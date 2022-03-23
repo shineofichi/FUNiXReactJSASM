@@ -1,7 +1,7 @@
 import * as ActionTypes from "./ActionTypes";
 
 const SalaryReducer = (
-  state = { isSalaryLoading: false, salaryErrMess: null, salary: [] },
+  state = { isSalaryLoading: true, salaryErrMess: null, salary: [] },
   action
 ) => {
   switch (action.type) {

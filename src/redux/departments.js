@@ -1,7 +1,7 @@
 import * as ActionTypes from "./ActionTypes";
 
 const DepartmentReducer = (
-  state = { isDeptLoading: false, errMess: null, departments: [] },
+  state = { isDeptLoading: true, errMess: null, departments: [] },
   action
 ) => {
   switch (action.type) {

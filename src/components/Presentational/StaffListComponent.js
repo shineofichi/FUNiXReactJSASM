@@ -9,9 +9,6 @@ import { FadeTransform } from "react-animation-components";
 
 function StaffList(props) {
   const [searchName, setSearchName] = useState("");
-  const getSearchKey = (key) => {
-    setSearchName(key);
-  };
   const handleDeleteBtn = (staff) => {
     const isDelete = window.confirm(
       "Xác nhận xóa nhân viên " + staff.name + "?"
@@ -51,7 +48,6 @@ function StaffList(props) {
               }}
             >
               <Card>
-                {" "}
                 <Link to={`/staffs/${staff.id}`}>
                   <CardImg src={staff.image} alt={staff.name} />{" "}
                 </Link>
@@ -77,14 +73,13 @@ function StaffList(props) {
         <div className="row">
           <h1>Nhân viên</h1>
           <div className="m-auto">
-            {" "}
             <AddNewStaff
               staffs={props.staffs}
               postAddNewStaff={props.postAddNewStaff}
             />
           </div>
           <div className="pt-2 ml-auto">
-            <Search onSubmitSearhKey={getSearchKey} />
+            <Search onSubmitSearhKey={setSearchName} />
           </div>
         </div>
         <hr></hr>

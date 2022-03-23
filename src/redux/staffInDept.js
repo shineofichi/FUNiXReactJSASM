@@ -2,7 +2,8 @@ import * as ActionTypes from "./ActionTypes";
 
 const StaffsInDeptReducer = (
   state = {
-    isStaffsInDeptLoading: false,
+    deptId: null,
+    isStaffsInDeptLoading: true,
     errStaffsInDeptMess: null,
     staffsInDept: [],
   },
@@ -28,7 +29,11 @@ const StaffsInDeptReducer = (
         errStaffsInDeptMess: null,
         staffsInDept: action.payload,
       };
-
+    case ActionTypes.CHANGE_DEPT_ID:
+      return {
+        ...state,
+        deptId: action.payload,
+      };
     default:
       return state;
   }

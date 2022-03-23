@@ -21,7 +21,7 @@ function AddNewStaff(props) {
       department: defineDep(values.department),
       annualLeave: values.annualLeave,
       overTime: values.overTime,
-      image: "/asset/images/alberto.png",
+      image: "/assets/images/alberto.png",
     };
     props.postAddNewStaff(newStaff);
   };

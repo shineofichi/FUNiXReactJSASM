@@ -1,11 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Routes,
-  useParams,
-  Navigate,
-  useLocation,
-} from "react-router-dom";
+import { Route, Routes, useParams, Navigate } from "react-router-dom";
 import StaffList from "../Presentational/StaffListComponent";
 import Header from "../Presentational/HeaderComponent";
 import Footer from "../Presentational/FooterComponent";
@@ -23,8 +18,8 @@ import {
   editStaffInfo,
   fetchStaffsInDept,
   addStaffsInDept,
+  handleDeptId,
 } from "../../redux/ActionCreator";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 // Set props base on redux state
 const mapStateToProps = (state) => {
@@ -46,6 +41,7 @@ const mapDispathToProps = (dispath) => ({
   editStaffInfo: (staff) => dispath(editStaffInfo(staff)),
   fetchStaffsInDept: (deptId) => dispath(fetchStaffsInDept(deptId)),
   addStaffsInDept: () => dispath(addStaffsInDept()),
+  handleDeptId: (id) => dispath(handleDeptId(id)),
 });
 
 function Main(props) {
@@ -56,12 +52,10 @@ function Main(props) {
     props.fetchDepts();
     props.fetchSalary();
     props.fetchStaffsInDept(deptId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deptId]);
-
-  // Hook for use TransitionGroup
-  const location = useLocation();
-
+  // if (props.staffInDept.deptId) {
+  //   props.fetchStaffsInDept(props.staffInDept.deptId);
+  // }
   const StaffWithId = () => {
     const params = useParams();
     return (
@@ -94,36 +88,32 @@ function Main(props) {
   return (
     <div>
       <Header />
-      <TransitionGroup>
-        <CSSTransition key={location.key} classNames="page" timeout={300}>
-          <Routes location={location}>
-            <Route
-              path="/staffs"
-              element={
-                <StaffList
-                  staffs={props.staffs.staffs}
-                  isLoading={props.staffs.isStaffLoading}
-                  errMess={props.staffs.errStaffMess}
-                  postAddNewStaff={props.postAddNewStaff}
-                  deleteStaff={props.deleteStaff}
-                  editStaffInfo={props.editStaffInfo}
-                />
-              }
+      <Routes>
+        <Route
+          path="/staffs"
+          element={
+            <StaffList
+              staffs={props.staffs.staffs}
+              isLoading={props.staffs.isStaffLoading}
+              errMess={props.staffs.errStaffMess}
+              postAddNewStaff={props.postAddNewStaff}
+              deleteStaff={props.deleteStaff}
+              editStaffInfo={props.editStaffInfo}
             />
-            <Route path="/staffs/:id" element={<StaffWithId />} />
-            <Route
-              path="/dep"
-              element={<Department deps={props.departments.departments} />}
-            />
-            <Route path="/dep/:id" element={<DepDetailWithId />} />
-            <Route
-              path="/salary"
-              element={<Salary salary={props.salary.salary} />}
-            />
-            <Route path="*" element={<Navigate to="/staffs" />} />
-          </Routes>
-        </CSSTransition>
-      </TransitionGroup>
+          }
+        />
+        <Route path="/staffs/:id" element={<StaffWithId />} />
+        <Route
+          path="/dep"
+          element={<Department deps={props.departments.departments} />}
+        />
+        <Route path="/dep/:id" element={<DepDetailWithId />} />
+        <Route
+          path="/salary"
+          element={<Salary salary={props.salary.salary} />}
+        />
+        <Route path="*" element={<Navigate to="/staffs" />} />
+      </Routes>
       <Footer />
     </div>
   );
